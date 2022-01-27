@@ -1,0 +1,10 @@
+Miquel Torner Viñals
+_____________________
+
+- Los mensajes que genera wc no van a salir necesariamente sirmpe en el mismo
+orden, però siempre saldrà  primero el wc del fichero antiguo y desprués el
+del fichero nuevo(el ya ordenado).
+Podemos asegurar lo dicho anteriormente ya que el programa principal és
+recurrente mientras que la funcion crear_hermanos(), se ejecuta de forma
+secuancial, hasta que no haya hecho el primer wc, no se hará el sort y hasta
+que no haya terminado este no se hará el wc del nuevo fichero.

@@ -1,0 +1,25 @@
+¿Podéis garantizar que el resultado de la ejecución de
+multiA.c mostrará sólo una vez el resultado de la suma (es decir,no podrá aparecer dos o más
+veces)? Justificad la respuesta en el fichero respuestas.txt; en caso que vuestro multiA.c
+no lo garantice, modificad el código de multiA.c (llamadle multiB.c) para garantizarlo (la
+solución debe mantener la ejecución concurrente de los procesos hijos).
+
+Si, donat que quan s'esta llegint el missatge de dins de la pipe, acaba el bucle
+o bé quan s'acaben els caràcters per llegir o bé si es troba un endl.
+
+
+
+
+Ejecutad el script dir.sh que os hemos facilitado. Si examináis su código veréis que crea una
+estructura de directorios y muestra el resultado de ejecutar ls -la. Explicad justificadamente en
+el fichero respuestas.txt los valores numéricos mostrados en la segunda columna del
+resultado (correspondiente al número de enlaces físicos a cada fichero).
+
+drwxrwxr-x 4 miquel miquel 4096 ene 17 18:26 .            // arrel (amb ella mateixa x2, b i c)
+drwx------ 3 miquel miquel 4096 ene 17 18:26 ..           // directori superior (en el nostre cas 3)
+drwxrwxr-x 5 miquel miquel 4096 ene 17 18:26 b            // b (ref. per a, ell mateix i els seus subdirectoris d, e i f)
+drwxrwxr-x 2 miquel miquel 4096 ene 17 18:26 c            // ref. per a i ell mateix
+-rw-rw-r-- 1 miquel miquel    0 ene 17 18:26 g            // només ref. per a
+-rw-rw-r-- 2 miquel miquel    0 ene 17 18:26 h            // ref. per a i j (hard_linki)
+lrwxrwxrwx 1 miquel miquel    3 ene 17 18:26 i -> a/g     // ref. per a (on està contingut)
+-rw-rw-r-- 2 miquel miquel    0 ene 17 18:26 j            // ref. per a i h
