@@ -1,0 +1,6 @@
+PREGUNTA 17.¿Qué opción has tenido que añadir al gcc para generar el fichero objecto? ¿Qué
+opción has tenido que añadir al gcc para que el compilador encuentre el fichero
+mis_funciones.h?
+
+P17 - L'opció -c, aquesta opció permet compilar els fitxers i generar el fitxer objecte sense lincarlo.
+He utilitzat les comes "" en comptes de <>, d'aquesta forma el compilador busca el fitxer .h a la carpeta des d'on s'executa. Alternativament es podria haver utilitzar l'etiqueta -I.

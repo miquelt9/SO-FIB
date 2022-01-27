@@ -1,0 +1,32 @@
+PREGUNTA 28.¿Qué le pasa al padre ahora cuando le llega el evento SIGALRM?
+
+- Termina el proceso mostrando "Alarm clock" (la acción por defecto).
+
+PREGUNTA 29.¿Qué pasa con la tabla de tratamientos de signals si hacemos un execlp (y
+cambiamos el código)? ¿Se mantiene la reprogramación de signals? ¿Se pone por defecto?
+
+- Vuelve a ser el tratamiento por defecto ya que muta y se restaura el comportamiento de los signals
+
+PREGUNTA 30.El programa ejemplo_waitpid, ¿Es secuencial o concurrente?
+
+- Es concurrente
+
+PREGUNTA 31. ¿El usuario so1 puede enviar al signals al proceso lanzado por el usuario
+alumne?, ¿qué error da?
+
+-
+
+PREGUNTA 32.¿Qué mensaje muestra el Shell cuando se envía por segunda vez el mismo
+signal?
+
+-
+
+PREGUNTA 33. Explica qué diferencias ves en los mensajes que aparecen por pantalla que
+muestran los dos experimentos y cuál es el motivo
+
+-
+
+PREGUNTA 34.Explica a qué se debe el resultado de las ejecuciones de signal_perdido con
+parámetro 1 y con parámetro 0
+
+-

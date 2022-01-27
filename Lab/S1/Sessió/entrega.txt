@@ -1,0 +1,63 @@
+PREGUNTA 1. ¿Qué comandos habéis utilizado para crear los directorios S1..S5?
+
+P1 - #mkdir S1 S2 S3 S4 S5
+
+PREGUNTA 2. ¿Qué comando utilizas para listar el contenido de un directorio? ¿Qué opción hay que añadir para ver los ficheros ocultos?
+
+P2 - Per llistar el contingut #ls , per veure el contingut ocult s'hi afageix "-a" --> #ls -a
+
+PREGUNTA 3. ¿Qué opción hay que añadir a ls para ver información extendida de los ficheros? ¿Qué campos se ven por defecto con esa opción? (si no encuentras la información en el man pregunta a tu profesor)
+
+P3 - S'afageix "-la", #ls -la. Els permisos, nombre d'enllaços, propietari del fitxer, grup al qual pertany el fitxer, mida, data de creació o modificació i nom del fitxer o directori.
+
+PREGUNTA 4. ¿Qué opciones de menú has activado para extender la información que muestra el File Browser?
+
+P4 - Preferences > List Columns, pots triar quina informació vols que apareixi al File Browser
+
+PREGUNTA 5. ¿Qué secuencia de comandos has ejecutado para borrar un directorio, comprobar que no está y volver a crearlo?
+
+P5 - #rmdir S2, #ls, #mkdir S2
+
+PREGUNTA 6. ¿Qué diferencia hay entre el comando cat y less?
+
+P6 - El cat imprimeix sempre per pantalla mentre el less ho obre com man/vim per facilitar la visualització
+
+PREGUNTA 7. ¿Para qué sirve la opción -i del comando cp? ¿Cuál es la orden para hacer un alias del comando cp que incluya la opción -i?
+
+P7 - La "i" serveix per avisar en cas que ja hi hagi un nom amb el mateix nom en el mateix destí on es vol copiar
+
+PREGUNTA 8. ¿Qué hace la opción -i del comando rm? ¿Y la opción -i del mv? Escribe la orden para hacer un alias del comando rm que incluya la opción -i.
+
+P8 - La "i" a rm serveix per avisar abans que s'elimina un fitxer. La "i" a mv serveix per avisar de una sobreescriptura quan mous un fitxer i el nom ja existeix. #alias rm='rm -i'
+
+PREGUNTA 9. ¿Qué opciones de chmod has utilizado para dejar solamente los permisos de escritura? ¿Qué resultado ha devuelvo cat al intentar ver el fichero test? ¿Qué opciones de chmod has utilizado para dejar solamente los permisos de lectura? ¿Has conseguido borrarlo?
+
+P9 - #chmod ugo=w, Error: Permision denied, #chmod ugo=r, si después de respondre a un avís que avisa que el fitxer estava protegit contra escriptura
+
+PREGUNTA 10. ¿Cuál es el significado de las variables de entorno PATH, HOME y PWD?
+
+P10 - PATH indica els directoris on buscar quan s'executa un programa, HOME indica el directori casa de l'usuari i PWD indica el directori en el que s'esta treballant actualment
+
+PREGUNTA 11.La variable PATH es una lista de directorios, ¿Qué carácter hace de separador entre un directorio y otro?
+
+P11 - Els ':'
+
+PREGUNTA 12.¿Qué comando has usado para definir y consultar el valor de las nuevas variables que has definido?
+
+P12 - #export ABC=123, #echo $ABC, #export HOME=/home, #echo $HOME
+
+PREGUNTA 13.¿Qué versión del ls se ha ejecutado?: El ls del sistema o el que te acabas de descargar? Ejecuta el comando “which ls” para comprobarlo.
+
+P13 - La versió que acabo de descarregar
+
+PREGUNTA 14.¿El directorio en el que estás, está definido en la variable PATH? ¿Qué implica esto?
+
+P14 - Si, quan executi un programa comprovarà si existeix en el directori en el que estic.
+
+PREGUNTA 15.¿Qué binario ls se ha ejecutado en cada caso de los anteriores:El ls del sistema o el que te acabas de descargar? Ejecuta el comando “which ls” para comprobarlo.
+
+P15 - El ls del sistema
+
+PREGUNTA 16.¿Qué diferencia hay entre utilizar > y >>?
+
+P16 - Amb >> ho afageix al final del fitxer, si és > ho sobreescriu

@@ -1,0 +1,137 @@
+Pregunta 35:
+
+Direcció // Tipus dada // Nom variable
+______________________________________________________________
+000000000000038c r __abi_tag
+                 U atoi@GLIBC_2.2.5
+0000000000004010 B __bss_start
+0000000000004020 b completed.0
+                 w __cxa_finalize@GLIBC_2.2.5
+0000000000004000 D __data_start
+0000000000004000 W data_start
+0000000000001130 t deregister_tm_clones
+00000000000011a0 t __do_global_dtors_aux
+0000000000003d98 d __do_global_dtors_aux_fini_array_entry
+0000000000004008 D __dso_handle
+0000000000003da0 d _DYNAMIC
+0000000000004010 D _edata
+0000000000005040 B _end
+                 U exit@GLIBC_2.2.5
+0000000000001454 T _fini
+00000000000011e0 t frame_dummy
+0000000000003d90 d __frame_dummy_init_array_entry
+0000000000002144 r __FRAME_END__
+0000000000004040 B globalArray
+0000000000003f90 d _GLOBAL_OFFSET_TABLE_
+                 w __gmon_start__
+000000000000206c r __GNU_EH_FRAME_HDR
+0000000000001000 T _init
+0000000000002000 R _IO_stdin_used
+                 w _ITM_deregisterTMCloneTable
+                 w _ITM_registerTMCloneTable
+                 U __libc_start_main@GLIBC_2.34
+00000000000011e9 T main
+                 U malloc@GLIBC_2.2.5
+0000000000001160 t register_tm_clones
+                 U sprintf@GLIBC_2.2.5
+0000000000001100 T _start
+                 U strlen@GLIBC_2.2.5
+0000000000004010 D __TMC_END__
+                 U write@GLIBC_2.2.5
+
+
+Apareix globalArray, però no les locals només sabem en quina regió es troba:
+0000000000004040 B globalArray (GLOBAL)
+00000000000011e9 T main (LOCALS)
+
+PREGUNTA 36.Para los dos ejecutables, compilado estático y dinámico, observa su tamaño, la
+salida de los comandos nm y objdump ¿En qué se diferencian los dos ejecutables?
+
+En el programa compilat amb de forma dinàmica el tamany de fitxer, la sortida de nm i la sortida de objdump
+són molt més petits que el que s'ha compilat de forma estàtica. Això es deu a que l'estàtic copia laes llibreries
+mentre que la dinàmica només la referencia.
+
+PREGUNTA 37.Observa el contenido del fichero maps del /proc para cada proceso y apunta
+para cada región la dirección inicial, dirección final y etiqueta asociada. ¿Qué diferencia hay
+entre el maps de cada proceso?
+
+mem1_static:
+  00400000-00401000 r--p 00000000 103:05 4087202                           /home/miquel/Documents/FIB/SO/S5/mem1_static
+  00401000-00496000 r-xp 00001000 103:05 4087202                           /home/miquel/Documents/FIB/SO/S5/mem1_static
+  00496000-004be000 r--p 00096000 103:05 4087202                           /home/miquel/Documents/FIB/SO/S5/mem1_static
+  004bf000-004c3000 r--p 000be000 103:05 4087202                           /home/miquel/Documents/FIB/SO/S5/mem1_static
+  004c3000-004c6000 rw-p 000c2000 103:05 4087202                           /home/miquel/Documents/FIB/SO/S5/mem1_static
+  004c6000-004cc000 rw-p 00000000 00:00 0
+  0147c000-0149e000 rw-p 00000000 00:00 0                                  [heap]
+  7ffd3af11000-7ffd3af32000 rw-p 00000000 00:00 0                          [stack]
+  7ffd3afd7000-7ffd3afdb000 r--p 00000000 00:00 0                          [vvar]
+  7ffd3afdb000-7ffd3afdd000 r-xp 00000000 00:00 0                          [vdso]
+  ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]
+
+
+mem1_dynamic:
+  55d22ac65000-55d22ac66000 r--p 00000000 103:05 4085012                   /home/miquel/Documents/FIB/SO/S5/mem1_dynamic
+  55d22ac66000-55d22ac67000 r-xp 00001000 103:05 4085012                   /home/miquel/Documents/FIB/SO/S5/mem1_dynamic
+  55d22ac67000-55d22ac68000 r--p 00002000 103:05 4085012                   /home/miquel/Documents/FIB/SO/S5/mem1_dynamic
+  55d22ac68000-55d22ac69000 r--p 00002000 103:05 4085012                   /home/miquel/Documents/FIB/SO/S5/mem1_dynamic
+  55d22ac69000-55d22ac6a000 rw-p 00003000 103:05 4085012                   /home/miquel/Documents/FIB/SO/S5/mem1_dynamic
+  55d22ac6a000-55d22ac6b000 rw-p 00000000 00:00 0
+  55d22afd5000-55d22aff6000 rw-p 00000000 00:00 0                          [heap]
+  7fe949847000-7fe949849000 rw-p 00000000 00:00 0
+  7fe949849000-7fe949875000 r--p 00000000 103:05 1312978                   /usr/lib/x86_64-linux-gnu/libc.so.6
+  7fe949875000-7fe949a09000 r-xp 0002c000 103:05 1312978                   /usr/lib/x86_64-linux-gnu/libc.so.6
+  7fe949a09000-7fe949a5d000 r--p 001c0000 103:05 1312978                   /usr/lib/x86_64-linux-gnu/libc.so.6
+  7fe949a5d000-7fe949a5e000 ---p 00214000 103:05 1312978                   /usr/lib/x86_64-linux-gnu/libc.so.6
+  7fe949a5e000-7fe949a61000 r--p 00214000 103:05 1312978                   /usr/lib/x86_64-linux-gnu/libc.so.6
+  7fe949a61000-7fe949a64000 rw-p 00217000 103:05 1312978                   /usr/lib/x86_64-linux-gnu/libc.so.6
+  7fe949a64000-7fe949a73000 rw-p 00000000 00:00 0
+  7fe949a8b000-7fe949a8c000 r--p 00000000 103:05 1312919                   /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+  7fe949a8c000-7fe949ab4000 r-xp 00001000 103:05 1312919                   /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+  7fe949ab4000-7fe949abe000 r--p 00029000 103:05 1312919                   /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+  7fe949abe000-7fe949ac0000 r--p 00032000 103:05 1312919                   /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+  7fe949ac0000-7fe949ac2000 rw-p 00034000 103:05 1312919                   /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+  7ffd61a6d000-7ffd61a8e000 rw-p 00000000 00:00 0                          [stack]
+  7ffd61b8b000-7ffd61b8f000 r--p 00000000 00:00 0                          [vvar]
+  7ffd61b8f000-7ffd61b91000 r-xp 00000000 00:00 0                          [vdso]
+  ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]
+
+En el programa compilat amb -static maps és més curt ja que no ha de referenciar llibreries,
+en canvi en el compilat dinàmicament conté les referències a la llibreria cosa que fa que tingui més línies.
+
+PREGUNTA 38.¿A qué región de las descritas en el maps pertenece cada variable y cada zona
+reservada con malloc? Apunta la dirección inicial, dirección final y el nombre de la región.
+
+mem1_static:
+
+globalArray (GLOBAL) està situada al data (00400000-004c6000), les variables locals a l'stack (7ffd3af11000-7ffd3af32000) i la memoria dinàmica del malloc en el heap (0147c000-0149e000)
+
+mem1_dynamic:
+
+globalArray (GLOBAL) està situada al data (55d22ac65000-55d22aff6000), les variables locals a l'stack (7ffd61a6d000-7ffd61a8e000) i la memoria dinàmica del malloc en el heap (55d22afd5000-55d22aff6000)
+
+PREGUNTA 39.Para cada ejecución apunta el número de mallocs hechos y la dirección inicial y
+final del heap que muestra el fichero maps del /proc. ¿Cambia el tamaño según el parámetro
+de entrada? ¿Por qué?
+
+mem1 3: 5636b3eb6000-5636b3ed7000 [heap]
+mem1 5: 5627b7324000-5627b7345000 [heap]
+mem1 100: 55bc7a3c8000-55bc7a44c000 [heap]
+
+PREGUNTA 40.¿Cuál es el tamaño del heap en este caso? Explica los resultados.
+
+mem1 3: 5558304b4000-5558304d5000 [heap]
+mem1 5: 55e908615000-55e908636000 [heap]
+mem1 100: 55dc4284c000-55dc4286d000 [heap]
+
+El fet de fer free fa que no es necessiti tanta memòria en el heap ja que s'allibera en cada cicle.
+
+PREGUNTA 41.Para cada ejecución apunta el número de sbrks hechos y la dirección inicial y
+final del heap que se muestra en el maps del /proc. ¿Cambia el tamaño del heap respecto al
+observado en la pregunta 6? ¿Por qué?
+
+Si, ja que encara que hi hagui espai sense assignar en el heap, el sbrk reserva la memòria que se li ha demanat.
+
+PREGUNTA 42.¿Qué error contiene el código del programa? ¿Por qué el programa no falla en
+las primeras iteraciones? Propón una alternativa a este código que evite que se genere la
+excepción, detectando, antes de que pase, que vamos a hacer un acceso fuera del espacio de
+direcciones.

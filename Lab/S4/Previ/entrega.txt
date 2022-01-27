@@ -1,0 +1,34 @@
+alarm1:
+
+1.
+No pasa res, ja que el temporitzador està programat a 10 segons.
+
+2.
+No, es mostra per pantalla el missatge "Killed" en comptes de "Alarm clock".
+
+3.
+El procés del shell és l'encarregat de rebre la informació de finalització de cada procés amb waitpid() i mostrar-nos el missatge corresponent.
+
+4.
+No, ja que el sigsuspend() bloqueja el programa fins que arriba una senyal, en el nostre cas la de alarma la qual acaba el programa i no permet que s'executi la instrucció exit().
+
+alarm2:
+
+1.
+Al enviar-li el la senyal -ALRM utilitzant kill s'acaba el temporitzador i el programa es desbloqueja sense tenir en compte el temps.
+
+2.
+No, hi han senyals com ara el SIGKILL que no se'n pot modificar el tractament.
+
+3.
+Alarm retorna els segons restants perquè acabi el següent temporitzador.z Per solucionar-ho hariem de restar el valor que retorna la funció d'alarma a la variable segons.
+
+alarm3:
+
+1.
+Tant el pare com el fill reben la senyal SIGALRM. Per veure-ho ens hem de fixar en la sortida que es genera quan executem el programa, on es veu el PID de cadascun dels processos cada vegada que salta l'alarma.
+
+alarm4:
+
+1. Només el pare programa un SIGALRM, encara que ambdos es queden esperant-ne un. Qui la programat (el pare) el rep de manera que és l'únic que escric informació per la sortida. Notem que si enviem un SIGALRM al fill aquesta es debloqueja i comença a funcionar el contador (sino el fill espera indefinidament per el sigsuspend())
+

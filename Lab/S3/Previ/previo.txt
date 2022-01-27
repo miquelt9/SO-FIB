@@ -1,0 +1,72 @@
+1 - Output execució 'ejemplo_fork1':
+
+Soy el proceso 32659
+Soy el proceso 32660
+
+Encara que sabem que un pid és el del pare i l'altre el del fill, no podem saber quin és quin ja que no hem implementat cap condició que ens ho permeti saber.
+
+2 - Output execució 'ejemplo_fork2':
+
+Antes del fork: Soy el proceso 32745
+PADRE: Soy el proceso 32745
+Los DOS: Soy el proceso 32745
+HIJO: Soy el proceso 32746
+Los DOS: Soy el proceso 32746
+
+Abans de fer el fork (línia 1) només escriu el pare per pantalla, després donat que hi ha una condició el fill executa la línia 4 (ja que el fork li ha retornat 0), en canvi el pare executa la línia 2 (el fork li ha retornat el pid de fill que és diferent de 0). Seguidament cada procés executa la línia 3 i 5 respectivament una vegada han sortit de la condició.
+
+3 - Output execució 'ejemplo_fork3':
+
+Antes del fork: Soy el proceso 33027
+PADRE: Soy el proceso 33027
+Solo lo ejecuta el padre: Soy el proceso 33027
+HIJO: Soy el proceso 33028
+
+Igual que en l'exemple anterior la línia 1 l'executa el pare (encara no s'ha fet fork), la esprés donat que hi ha una condició el fill executa la línia 4 (ja que el fork li ha retornat 0), en canvi el pare executa la línia 2 (el fork li ha retornat el pid de fill que és diferent de 0). Però la part final només l'executa el pare ja que el fill en la seva condició hi té la funció exit(0) que fa que acabi el procés i per tant no acabi d'executar el codi restant.
+
+4 - Output execució 'ejemplo_fork4':
+
+Antes del fork: Soy el proceso 33160
+PADRE: Soy el proceso 33160
+Solo lo ejecuta el padre: Soy el proceso 33160
+HIJO: Soy el proceso 33161
+HIJO acaba: Soy el proceso 33161
+
+De nou, la línia 1 només l'executa el pare, ara però l'ordre escriptura per pantalla ha canviat ja que donat que són processos paralels el pare executa el write() abans que el fill (i per tant escriu la línia 2 i 3) ja que aquest perd temps en un bucle for. A continuació el fill escriu la línia 4 i 5, però al fer exit() no escriu la que hi ha després de la condició, cosa que si que fa el pare (línia 3).
+
+5 - Output execució 'ejemplo_fork5':
+
+Antes del fork: Soy el proceso 33283
+PADRE: Soy el proceso 33283
+HIJO: Soy el proceso 33284
+HIJO:La variable_global vale A y la local a
+PADRE:La variable_global vale A y la local a
+Solo lo ejecuta el padre: Soy el proceso 33283
+
+De nou, la línia 1 només l'executa el pare, ara però s'ha declarat una variable global i una local abans de fer el fork. El fill imprimeix la línia 3 i 4, el pare la 2, 5 i 6. De forma que podem comprovar que el fill ha heredat les variables del pare (línia 4 i 5). Abans de sortir de la condició el fill fa un exit() que evita que executi el write() de fora de la condició, que si que ho fa el pare (línia 6)
+
+6 - 
+
+Apareix una llista en la que el pare i el fill van escrivint la seva variable global, notem que no s'afecten entre ells, és a dir, el pare defineix la variable global 'a', mentre que el fill té com a variable global 'A'. Cadascú incrementa la seva varibla global per seperat, no s'efecten entre ells.
+No podem assegurar que sempre surti el mateix resultat ja que com que són processos paral·lels podria donar-se que cada procés es gestionés de forma diferent, fet que donaria ventatge per un i podria produir canvis a la sortida.
+
+7 - 
+Perquè estem intentant utilitzar una varibale local en una funció sense haver-la passat coma  paràmetre, cosa que només es pot fer amb les globals. És a dir, no té a veure amb els processos. Es pot solucionar afegir un paràmetre int a la funció Escriure_variables per tal de passar la varibale local.
+
+8 - 
+
+El programa llista els elements de la carpeta en que s'executa amb el format de llista llarga.
+Només apareix una begada el missatge del pid, això es deu a que quan s'executa la instrucció execlp el procés muta i sobreescriu l'actual, de forma que la resta de codi no s'executarà.
+
+9 - Output execució 'ejemplo_exec2':
+
+Soy el proceso: 9598
+Soy el proceso 9598
+Soy el proceso 9599
+
+La primera línia és escrita per el programa, seguidament es muta el procés cridant 'ejemplo_fork1' amb la instrucció 'execlp'. Així doncs, les dos següents línies les escriu 'ejemplo_fork1', una el pare i l'altre el fill.
+
+
+---------------
+
+S'han consulatat els man de getpid, fork, exit, waitpid, execlp, perror, ps i proc.
