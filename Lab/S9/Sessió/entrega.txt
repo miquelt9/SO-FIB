@@ -1,0 +1,143 @@
+¿Cual/es de los comandos anteriores han dado error al intentar ejecutarlos? Explica
+por qué.
+
+ln D $HOME/A/G
+ln: failed to create hard link '/home/miquel/A/G': File exists
+
+No es pot crear un hardlink amb un nom que ja existeix.
+
+Explica el resultado de ejecutar el comando “stat” utilizando como parámetro cada
+uno de los nombres simbólicos que has creado anteriormente.
+
+#stat D
+  File: D
+  Size: 25        	Blocks: 8          IO Block: 4096   regular file
+Device: 10305h/66309d	Inode: 660406      Links: 2
+Access: (0664/-rw-rw-r--)
+D és un fitcer regular de dades
+
+#stat E
+  File: E -> /home/miquel/A
+  Size: 14        	Blocks: 0          IO Block: 4096   symbolic link
+Device: 10305h/66309d	Inode: 660407      Links: 1
+Access: (0777/lrwxrwxrwx)
+E és un softlink (enllaç simbòlic) que apunta al directori A
+
+#stat F
+  File: F -> D
+  Size: 1         	Blocks: 0          IO Block: 4096   symbolic link
+Device: 10305h/66309d	Inode: 660420      Links: 1
+Access: (0777/lrwxrwxrwx)
+És un softlink (enllaç simbòlic) que apunta al fitxer D
+
+#stat G
+  File: G
+  Size: 25        	Blocks: 8          IO Block: 4096   regular file
+Device: 10305h/66309d	Inode: 660406      Links: 2
+Access: (0664/-rw-rw-r--)
+És un hardlink direccionat al fitxer D.
+
+
+¿Cuál sería el contenido de los ficheros D, E, F y G? Comenta las diferencias que
+observas al utilizar los comandos “more” o “cat” para ver el contenido del fichero y
+el resultado de utilizar el comando “readlink”.
+
+#cat D
+estoy en el directorio A
+#readlink D
+Al no ser un enllaç no mostra cap direcció
+
+#cat E
+cat: E: Is a directory
+#readlink E
+/home/miquel/A
+Al ser un softlink ens indica mostra un error al cat (ja que utilitzem cat per un directori)
+i ens mostra al directori al que s'apunta
+
+#cat F
+estoy en el directorio A
+#readlink F
+D
+Al ser un enllaç simbòlic ens mostra el contingut a D i que s'apunta a aquest
+
+#cat G
+estoy en el directorio A
+#readlink G
+Hardlink, ens mostra el seu contingut i res quan es demana a qui apunta
+
+Escribe en papel los accesos que se realizan cuando se accede a los ficheros:
+“$HOME/A/F”, “$HOME/A/E” y “$HOME/A/G”. Ahora compáralos con el resultado
+que obtienes cuando ejecutas el comando “namei” con cada uno de los ficheros
+anteriores. ¿Si ejecutas “readlink $HOME/A/F” se realizan los mismos accesos?
+¿Cómo influye el hecho de que en unos casos sea una ruta absoluta a un fichero y
+en otros una ruta relativa?
+
+#namei ~/A/F
+f: /home/miquel/A/F
+ d /
+ d home
+ d miquel
+ d A
+ l F -> D
+   - D
+
+#namei ~/A/E
+f: /home/miquel/A/E
+ d /
+ d home
+ d miquel
+ d A
+ l E -> /home/miquel/A
+   d /
+   d home
+   d miquel
+   d A
+
+#namei ~/A/G
+f: /home/miquel/A/G
+ d /
+ d home
+ d miquel
+ d A
+ - G
+
+No es fan els mateixos accesos. Depenent de l'accés que realitzes s'haurà
+d'entrar a més o menys directoris per arribar al fitxer objectiu.
+
+Crea un soft link de un fichero a si mismo (un fichero que no exista previamente).
+Comenta el resultado de mirar su contenido utilizando el comando “cat”. Observa
+como controla el sistema la existencia de ciclos en el sistema de ficheros. Ejecuta el
+comando “namei” y comenta su resultado.
+
+#ln -s recursiu recursiu
+
+#cat recursiu
+cat: recursiu: Too many levels of symbolic links
+
+#namei recursiu
+f: recursiu
+ l recursiu -> recursiu
+   l recursiu -> recursiu
+     l recursiu -> recursiu
+       l recursiu -> recursiu
+         l recursiu -> recursiu
+           l recursiu -> recursiu
+             l recursiu -> recursiu
+               l recursiu -> recursiu
+                 l recursiu -> recursiu
+                   l recursiu -> recursiu
+                     l recursiu -> recursiu
+                       l recursiu -> recursiu
+                         l recursiu -> recursiu
+                           l recursiu -> recursiu
+                             l recursiu -> recursiu
+                               l recursiu -> recursiu
+                                 l recursiu -> recursiu
+                                   l recursiu -> recursiu
+                                     l recursiu -> recursiu
+                                       l recursiu -> recursiu
+                                         l recursiu -> recursiu
+namei: recursiu: exceeded limit of symlinks
+
+Es crea un bucle infinit de links simbòlics i quan es porten diverses iteracions
+el programa finalitza per ser masses nivells d'enllaços.

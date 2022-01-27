@@ -1,0 +1,57 @@
+S7_Previ - Miquel Torner Viñals
+
+es1:
+
+1. ¿Qué valor devuelve la llamada read después de pulsar el ^D?
+-> Retorna 0, que significa que ja no hi ha més dades per entrar, ergo s'acaba el bucle
+
+2. Apunta el comando utilizado en el fichero “previo.txt”.
+-> # ./es1 < sample.inp
+
+3. ¿Cuál es el resultado? ¿Qué operación realiza el comando ‘grep es’?
+
+-rwxrwxr-x 1 miquel miquel 16128 nov 20 13:18 es1
+-rw-r--r-- 1 miquel miquel  1170 feb  8  2021 es1.c
+-rwxrwxr-x 1 miquel miquel 16280 nov 20 13:18 es2
+-rw-r--r-- 1 miquel miquel  1700 feb  8  2021 es2.c
+-rwxrwxr-x 1 miquel miquel 16128 nov 20 13:18 es3
+-rw-r--r-- 1 miquel miquel   943 feb  8  2021 es3.c
+-rwxrwxr-x 1 miquel miquel 16040 nov 20 13:18 es4
+-rw-r--r-- 1 miquel miquel  1206 feb  8  2021 es4.c
+-rwxrwxr-x 1 miquel miquel 15768 nov 20 13:18 es5
+-rw-r--r-- 1 miquel miquel    31 feb  8  2021 es5.c
+-rwxrwxr-x 1 miquel miquel 16040 nov 20 13:18 es6
+-rw-r--r-- 1 miquel miquel   112 feb  8  2021 es6.c
+-rwxrwxr-x 1 miquel miquel 16000 nov 20 13:18 es7
+-rw-r--r-- 1 miquel miquel   107 feb  8  2021 es7.c
+-rwxrwxr-x 1 miquel miquel 16088 nov 20 13:18 es8
+-rw-r--r-- 1 miquel miquel   644 feb  8  2021 es8.c
+
+Mostra la sortida de ls -l pero amb només aquelles que contenen "es" en el nom i ho resalta en vermell
+
+4. Anota el comando en el fichero “previo.txt”.
+
+-> # ps aux | grep bash
+
+es8:
+
+¿Cuántos bytes se escriben en cada caso? ¿Qué diferencias observas en lo que aparece en pantalla?
+
+-> En el primer cas s'escriuen 4 bytes i en el segon 5 bytes, la diferència principal és que en el primer es mostra el numero interpretat amb el llenguatge intern de la màquina mentre que el segon es mostra el nombre imprès en caràcters (tal i com el llegiriem nosaltres)
+
+
+DeviceDrivers:
+
+a) ¿Qué función sirve para implementar el read específico del dispositivo gestionado por cada device driver?
+
+int read_driver_1 (struct file *f, char __user *buffer, size_t s, loff_t *off);     // Per myDriver1
+int read_driver_2 (struct file *f, char __user *buffer, size_t s, loff_t *off);     // Per myDriver2
+
+b) ¿Qué son el major y el minor? ¿Para qué sirven? ¿Qué major y minor utilizan los dos device drivers?
+
+Major i minor són paràmetres d'identificaicó d'un dispotiu físic.
+Major: indentifica el tipus de dispositiu
+Minor: instància concreta respecte el major
+
+major=249 minor=0 	// Per myDriver1
+major=250 minor=0	// Per myDriver2

@@ -1,0 +1,66 @@
+Miquel Torner Viñals
+
+PREGUNTA 55.Apunta en el fichero “entrega.txt” los comandos que has utilizado en cada
+apartado. Además entrega el fichero “es1_v2.c” ¿Qué diferencias observas en las dos
+ejecuciones de strace? ¿Cuántas llamadas a sistema read ejecuta cada versión? ¿Qué
+influencia puede tener sobre el rendimiento de ambas versiones de código? ¿Por qué?
+
+1. ps
+2. ./es1 > /dev/pts/1
+3. ./es1 | ./es1
+5. strace -o salida_v2 -e read ./es1_v2 < es2.c
+
+El numero de llamadas a sistema que hace cada uno, mientras que es1 lee char por char,
+es1_v2 lee multiples chars. De forma que en la version es1 se ejecuten tantos reads
+como chars para leers hay (1702), mientre que en la otra version hay muy pocas lineas read
+debido a que lee con un buffer de 256 bytes (8 reads).
+
+PREGUNTA 56.Explica las diferencias observadas en la salida del programa cuando el primer
+parámetro vale 0 o 1. ¿Para qué crees que sirve este parámetro?
+
+En la salida cuando la confiiguracion del programa está en 0 interpreta el numero
+como codigo ascii, mientras que si lo configuras con la opción 1 interpreta el
+numero de entrada con formato int
+
+PREGUNTA 57.Explica el motivo de los resultados observados dependiendo del formato
+fichero de entrada.
+
+Muestra por pantalla el input que le damos interpretado con formato de integer
+
+PREGUNTA 58.Explica las diferencias observadas entre la salida del programa es3 y es4. ¿Por
+qué la salida es inteligible para uno de los ficheros de entrada y no para el otro?
+
+En la salida del es3 nos muestra el output de la entrada en formato ascii, el contrario
+de lo que nos muetra el es4 (que lo hace en formato integer)
+
+PREGUNTA 59.Escribe los valores que ha mostrado el script showCpuTime.sh para cada uno
+de los procesos y comenta las diferencias entre ellos en cuanto al consumo de cpu. ¿A qué se
+deben? Identifica las líneas de código de marcan la diferencia entre ellos
+
+CMD                         %CPU     TIME
+./es1                        0.0 00:00:00
+./es5                        102 00:00:12
+
+Es es5 es un bucle infinito de forma que se ejecuta y nunca acaba ya que el while
+no tiene condicion de salida. En cambio el es1 tiene un read que impide que se
+ejecute el bucle de forma infinita y el programa se detiene hasta que recibe un input
+
+PREGUNTA 60.Anota en el fichero entrega.txt el resultado de ambas ejecuciones. Entrega el
+código programado en el fichero es6_v2.c
+
+PREGUNTA 61.¿Qué pasaría si usáramos el flag SA_RESTART en el sigaction? Repite las
+ejecuciones anteriores activando el flag SA_RESTART y anota el resultado en el fichero
+entrega.txt.
+
+PREGUNTA 62.¿Estaba ya en uso el major especificado en el código? En caso afirmativo, ¿qué
+driver lo estaba utilizando?
+
+PREGUNTA 63.Apunta la línea de la salida de lsmod correspondiente a myDriver1 y myDriver2.
+
+PREGUNTA 64.Apunta la línea de comandos que has utilizado para crear el dispositivo.
+
+PREGUNTA 65.Anota en el fichero “entrega.txt” el resultado de la ejecución y explica el
+resultado obtenido.
+
+PREGUNTA 66.Anota el resultado de la ejecución. Explica el motivo de las diferencias
+observadas comparando la salida de este ejercicio con la de la apartado 5.

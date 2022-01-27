@@ -1,0 +1,25 @@
+1.
+Crear pipe: # mknod pipe p
+Entrada   : # cat > pipe
+Sortide   : # cat < pipe
+
+2.
+No ja que donat que es tracta de dos processos independents necessitem un
+nom que ens permeti crear una 'associació' entre ells, sense aquest no els
+podem indicar quin pipe han d'utilitzar per comunicar-se.
+
+3.
+dup2(4,0);
+close(4);
+
+4.
+clientSocket:
+Tal i com diu el seu nom, aquesta funció crea un socket amb els seus paràmetres
+corresponents i amb els paràmetres següents: domini = AF_UNIX, tipus = SOCK_STREAM
+protocol = 0. Llavors mira si hi ha hagut un error comprovant si ret < 0.
+Seguidament li assigna una adreça amb bind (torna a comprovar que no hi hagi
+errors) i es fica en mode listen, per esperar a que li entri alguna connexió
+
+serverConnection:
+Si hi ha un socket creat (amb la funció anterior) s'accepta la connexió a aquest
+amb accept. Retorna un positiu si no hi ha hagut cap error, en cas contrari -1.

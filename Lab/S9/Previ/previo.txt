@@ -1,0 +1,146 @@
+Miquel Torner Viñals
+
+1.-
+
+a) ¿Cómo podéis saber los sistemas de ficheros montados en vuestro sistema y de
+qué tipo son? Indica, además, en qué directorios están montados.
+
+Utilitzant la instrucció $df -T:
+
+Filesystem     1K-blocks     Used Available Use% Mounted on
+tmpfs            1621916     2064   1619852   1% /run
+/dev/nvme0n1p5  96072076 55215968  35932872  61% /
+tmpfs            8109576   384976   7724600   5% /dev/shm
+tmpfs               5120        4      5116   1% /run/lock
+/dev/nvme0n1p1     98304    30869     67435  32% /boot/efi
+tmpfs            1621912      140   1621772   1% /run/user/1000
+
+b) ¿Cómo se puede saber el número de inodos libres de un sistema de ficheros?
+¿Qué comando has utilizado y con qué opciones?
+
+Utilitzant la instrucció df amb el flag -i
+
+c) ¿Cómo se puede saber el espacio libre de un sistema de ficheros? ¿Qué
+comando has utilizado y con qué opciones?
+
+Utilitzant la instrucció df amb el flag -h
+
+________________________________________________________________________________
+
+2.-
+
+¿De qué tipo es cada uno de links creados, sl_pr y hl_pr?
+
+sl_pr és un softlink i hl_pr és un hard link
+
+File: pr.txt
+Size: 25        	Blocks: 8          IO Block: 4096   regular file
+Device: 10305h/66309d	Inode: 4590268     Links: 2
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/  miquel)   Gid: ( 1000/  miquel)
+Access: 2021-12-21 18:07:40.718478628 +0100
+Modify: 2021-12-21 18:07:40.718478628 +0100
+Change: 2021-12-21 18:08:54.826449009 +0100
+Birth: 2021-12-21 18:07:40.718478628 +0100
+
+File: sl_pr -> pr.txt
+Size: 6         	Blocks: 0          IO Block: 4096   symbolic link
+Device: 10305h/66309d	Inode: 4590271     Links: 1
+Access: (0777/lrwxrwxrwx)  Uid: ( 1000/  miquel)   Gid: ( 1000/  miquel)
+Access: 2021-12-21 18:08:45.518450515 +0100
+Modify: 2021-12-21 18:08:45.514450515 +0100
+Change: 2021-12-21 18:08:45.514450515 +0100
+Birth: 2021-12-21 18:08:45.514450515 +0100
+
+File: hl_pr
+Size: 25        	Blocks: 8          IO Block: 4096   regular file
+Device: 10305h/66309d	Inode: 4590268     Links: 2
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/  miquel)   Gid: ( 1000/  miquel)
+Access: 2021-12-21 18:07:40.718478628 +0100
+Modify: 2021-12-21 18:07:40.718478628 +0100
+Change: 2021-12-21 18:08:54.826449009 +0100
+Birth: 2021-12-21 18:07:40.718478628 +0100
+
+Taula resum:
+         Inode    |   Tipus   |   Nº Links
+pr.txt  4590268    regular file   2
+sl_pr   4590271    symbolic link  1
+hd_pr   4590268    regular file   2
+
+El nombre de links són les vegades que apareix a la taula de fitxes. pr.txt i hl_pr
+tenen el mateix nombre de links perquè tenen el mateix inode (el hard link apunta
+al mateix inode que pr.txt)
+
+----------------------
+
+#cat sl_pr
+“esto es una prueba”
+
+#cat hl_pr
+“esto es una prueba”
+
+#namei sl_pr
+f: sl_pr
+ l sl_pr -> pr.txt
+   - pr.txt
+
+#namei hl_pr
+f: hl_pr
+- hl_pr
+
+#readlink sl_pr
+pr.txt
+
+#readlink hl_pr
+
+En la instrucció del softlink tenim un enllaç que apunta cap a pr.txt i en el
+readlink ens mostra cap a on apunta, en canvi el hardlink no té cap enllaç
+i per no mostra res.
+
+--------------------
+
+#stat sl_pr
+File: sl_pr -> pr.txt
+Size: 6         	Blocks: 0          IO Block: 4096   symbolic link
+Device: 10305h/66309d	Inode: 4590271     Links: 1
+Access: (0777/lrwxrwxrwx)  Uid: ( 1000/  miquel)   Gid: ( 1000/  miquel)
+Access: 2021-12-21 18:08:45.518450515 +0100
+Modify: 2021-12-21 18:08:45.514450515 +0100
+Change: 2021-12-21 18:08:45.514450515 +0100
+Birth: 2021-12-21 18:08:45.514450515 +0100
+
+#stat hl_pr
+File: hl_pr
+Size: 25        	Blocks: 8          IO Block: 4096   regular file
+Device: 10305h/66309d	Inode: 4590268     Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/  miquel)   Gid: ( 1000/  miquel)
+Access: 2021-12-21 18:17:54.165839279 +0100
+Modify: 2021-12-21 18:07:40.718478628 +0100
+Change: 2021-12-21 18:23:05.717966411 +0100
+Birth: 2021-12-21 18:07:40.718478628 +0100
+
+#cat sl_pr
+cat: sl_pr: No such file or directory
+
+#cat hl_pr
+“esto es una prueba”
+
+#namei sl_pr
+f: sl_pr
+ l sl_pr -> pr.txt
+     pr.txt - No such file or directory
+
+#namei hl_pr
+f: hl_pr
+- hl_pr
+
+#readlink sl_pr
+pr.txt
+
+#readlink hl_pr
+
+Es pot veure que el softlink ens indica que el fitxer no existeix i per tant
+no treu contingut i ens indica que a la ruta hi ha un error. No obstant cap
+sortides deles instruccions executades per el hardlink han canviat respecte la
+pregunta anterior.
+
+________________________________________________________________________________

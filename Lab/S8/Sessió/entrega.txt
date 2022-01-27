@@ -1,0 +1,20 @@
+PREGUNTA 67.¿Qué contiene el fichero al final de la ejecución?
+¿Contiene la salida del padre y
+del hijo, o sólo la del padre? ¿Cómo se explica ese contenido?
+
+Inicio i fin (la de ambos procesos). Este es debido a que el
+canal de salida pasa a ser el archivo al que redireccionamos.
+
+PREGUNTA 68.¿Acaba el programa padre? ¿y el hijo? ¿Por qué?
+
+Dado que el padre espera a que el hijo termine y dado que el hijo
+no se le cierra nunca el extremo de escritura, este espera
+hasta que reciba otros para mostrar o bien hasta que se le cierra
+el canal de modo que nunca termina i por consecuente tampoco el padre.
+
+PREGUNTA 69.Si quisiéramos que el lector también pudiera enviar un mensaje al escritor
+¿podríamos utilizar la misma pipe con nombre o deberíamos crear otra? Razona la respuesta.
+
+Dado que las pipes estan pensadas para ser unidireccionales es mejor crear
+otra pipe para poder comunicarse en la otra direccion. Otra opcion seria crear
+un socket para una comunicación bidireccional.
